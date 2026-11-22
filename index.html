@@ -9,7 +9,10 @@
 <body>
   <main class="app">
     <header class="top">
-      <h1>기수정렬 버킷 퍼즐</h1>
+      <div>
+        <h1>기수정렬 버킷 퍼즐</h1>
+        <p id="storyTitle" class="story-title muted"></p>
+      </div>
       <div class="stats">
         <div class="stat"><span class="label">레벨</span><span id="level" class="value">1</span></div>
         <div class="stat"><span class="label">점수</span><span id="score" class="value">0</span></div>
@@ -19,14 +22,21 @@
       </div>
     </header>
 
+    <section class="narrator" aria-live="polite">
+      <div id="narratorFace" class="narrator-face"></div>
+      <div class="narrator-bubble">
+        <span class="narrator-name">기수 반장</span>
+        <p id="instruction"></p>
+      </div>
+    </section>
+
     <section class="passes" aria-label="정렬 단계">
       <ol id="passList"></ol>
-      <p id="instruction" class="instruction"></p>
     </section>
 
     <section class="queue-wrap" aria-label="대기열">
       <div class="queue-head">
-        <span>대기열</span>
+        <span>대기 줄</span>
         <span id="queueCount" class="muted"></span>
       </div>
       <div id="queue" class="queue"></div>
@@ -35,11 +45,11 @@
     <section id="buckets" class="buckets" aria-label="버킷 0~9"></section>
 
     <div class="controls">
-      <button id="collectBtn" class="btn primary" disabled>버킷 모으기 <kbd>Space</kbd></button>
+      <button id="collectBtn" class="btn primary" disabled>다시 줄 세우기 <kbd>Space</kbd></button>
       <button id="restartBtn" class="btn">레벨 다시 시작</button>
     </div>
 
-    <p class="help muted">맨 앞 카드의 <b>강조된 자리 숫자</b>와 같은 번호의 버킷을 누르세요. 키보드 <kbd>0</kbd>~<kbd>9</kbd>도 됩니다.</p>
+    <p class="help muted">맨 앞 사람 번호표의 <b>강조된 자리 숫자</b>와 같은 방을 누르세요. 키보드 <kbd>0</kbd>~<kbd>9</kbd>도 됩니다.</p>
   </main>
 
   <div id="overlay" class="overlay" hidden>
