@@ -2,25 +2,25 @@
 
 // ---------- 레벨 & 스토리 ----------
 const LEVELS = [
-  { count: 6, digits: 2, hint: true, title: '1교시: 번호순 줄서기', room: '반',
+  { count: 6, digits: 2, hint: true, title: '1교시: 번호순 줄서기', scene: 'school', room: '반',
     intro: '전학생들이 번호표를 받았는데 줄이 엉망이야! 번호 순서대로 세워 보자.',
     outro: '완벽해! 선생님이 출석 부르기 편하겠다.' },
-  { count: 8, digits: 2, hint: true, title: '급식실 대기 줄', room: '줄',
+  { count: 8, digits: 2, hint: true, title: '급식실 대기 줄', scene: 'cafeteria', room: '줄',
     intro: '급식은 번호순! 배고픈 친구들이 꼬르륵거리며 기다리고 있어.',
     outro: '다들 밥 먹으러 갔어. 오늘 메뉴는 돈가스래!' },
-  { count: 8, digits: 3, hint: true, title: '놀이공원 입장', room: '게이트',
+  { count: 8, digits: 3, hint: true, title: '놀이공원 입장', scene: 'park', room: '게이트',
     intro: '이번엔 세 자리 입장권이야. 1의 자리 → 10의 자리 → 100의 자리 순서로!',
     outro: '전원 입장 완료! 롤러코스터 줄은… 그건 다음에 정렬하자.' },
-  { count: 10, digits: 3, hint: true, title: '수학여행 버스', room: '버스',
+  { count: 10, digits: 3, hint: true, title: '수학여행 버스', scene: 'bus', room: '버스',
     intro: '좌석 번호대로 앉아야 버스가 출발할 수 있대. 기사님이 기다리셔!',
     outro: '부릉부릉~ 버스 출발! 멀미약은 챙겼지?' },
-  { count: 12, digits: 3, hint: false, title: '깜깜한 영화관', room: '관',
+  { count: 12, digits: 3, hint: false, title: '깜깜한 영화관', scene: 'cinema', room: '관',
     intro: '불이 꺼져서 맨 앞 사람 번호표만 보여! 집중해.',
     outro: '모두 자리에 앉았어. 팝콘 소리만 들린다…' },
-  { count: 12, digits: 4, hint: true, title: '마라톤 출발선', room: '구역',
+  { count: 12, digits: 4, hint: true, title: '마라톤 출발선', scene: 'marathon', room: '구역',
     intro: '네 자리 배번이야! 출발 총성이 울리기 전에 정렬하자.',
     outro: '탕! 다들 달려 나갔어. 우리도 숨 좀 돌리자.' },
-  { count: 14, digits: 4, hint: false, title: '우주선 탑승', room: '도킹',
+  { count: 14, digits: 4, hint: false, title: '우주선 탑승', scene: 'space', room: '도킹',
     intro: '마지막 관문! 힌트 없이 우주선에 태워 보내야 해.',
     outro: '3, 2, 1… 발사! 넌 이제 진짜 기수정렬 마스터야!' },
 ];
@@ -31,7 +31,7 @@ function levelConfig(i) {
   if (i < LEVELS.length) return LEVELS[i];
   const k = i - LEVELS.length + 1;
   return {
-    count: Math.min(14 + k, 20), digits: 5, hint: false, room: '방',
+    count: Math.min(14 + k, 20), digits: 5, hint: false, room: '방', scene: 'space',
     title: `무한 대기열 #${k}`,
     intro: '다섯 자리 번호표를 든 사람들이 끝없이 몰려온다! 어디까지 갈 수 있을까?',
     outro: `무한 대기열 #${k} 돌파! 아직 더 온다…!`,
@@ -445,6 +445,7 @@ function showIntro() {
 function showLevelIntro(levelIndex) {
   state.level = levelIndex;
   const c = cfg();
+  document.body.dataset.scene = c.scene;
   showModal(
     `레벨 ${levelIndex + 1} · ${c.title}`,
     `<div class="modal-hero">${avatarSVG(NARRATOR)}</div>
@@ -517,6 +518,7 @@ document.addEventListener('keydown', (e) => {
 
 // ---------- 시작 ----------
 state.buckets = Array.from({ length: 10 }, () => []);
+document.body.dataset.scene = 'school';
 buildBuckets();
 el.narratorFace.innerHTML = avatarSVG(NARRATOR);
 el.instruction.textContent = '안녕! 시작하기를 눌러 줘.';

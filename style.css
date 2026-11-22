@@ -220,3 +220,88 @@ h1 { font-size: 1.35rem; margin: 0; letter-spacing: -.01em; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* ---------- 레벨별 배경 장면 ---------- */
+body {
+  --on-bg: var(--text);
+  --on-bg-muted: var(--muted);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: transparent; transition: background-color .4s;
+}
+.top h1 { color: var(--on-bg); }
+.story-title, .help { color: var(--on-bg-muted); }
+.passes li:not(.current) { background: var(--surface); border-color: var(--border); }
+.passes li.finished { color: var(--good); }
+
+/* 1 교실: 공책 줄 */
+body[data-scene="school"] {
+  background:
+    linear-gradient(90deg, transparent 44px, rgba(220, 80, 80, .28) 44px 46px, transparent 46px),
+    linear-gradient(transparent 31px, rgba(70, 120, 210, .16) 31px 32px) 0 0 / 100% 32px,
+    #fbf8ef;
+}
+/* 2 급식실: 체크 식탁보 */
+body[data-scene="cafeteria"] {
+  background:
+    repeating-conic-gradient(rgba(240, 120, 60, .14) 0 25%, transparent 0 50%) 0 0 / 56px 56px,
+    #fff5ea;
+}
+/* 3 놀이공원: 하늘 + 색종이 */
+body[data-scene="park"] {
+  background:
+    radial-gradient(circle at 20% 30%, #ff9ab0 3px, transparent 4px) 0 0 / 90px 90px,
+    radial-gradient(circle at 70% 60%, #7cc8ff 3px, transparent 4px) 0 0 / 110px 110px,
+    radial-gradient(circle at 40% 80%, #ffcf5a 3px, transparent 4px) 0 0 / 70px 70px,
+    radial-gradient(circle at 85% 15%, #9be3b0 2.5px, transparent 3.5px) 0 0 / 130px 130px,
+    linear-gradient(#bfe6ff, #fff0f6);
+}
+/* 4 버스: 하늘 + 구름 + 도로 */
+body[data-scene="bus"] {
+  background:
+    radial-gradient(ellipse 70px 24px at 15% 12%, #fff 98%, transparent) no-repeat,
+    radial-gradient(ellipse 50px 18px at 22% 10%, #fff 98%, transparent) no-repeat,
+    radial-gradient(ellipse 90px 26px at 78% 20%, #fff 98%, transparent) no-repeat,
+    repeating-linear-gradient(90deg, #fff 0 40px, transparent 40px 80px) 0 calc(100% - 38px) / 100% 6px no-repeat,
+    linear-gradient(transparent calc(100% - 80px), #5d6470 calc(100% - 80px)),
+    linear-gradient(#9fd3ff, #e9f6ff);
+}
+/* 5 영화관: 붉은 커튼 + 스포트라이트 */
+body[data-scene="cinema"] {
+  --on-bg: #f6efe6; --on-bg-muted: #d8c8b8;
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(255, 220, 150, .28), transparent 60%),
+    repeating-linear-gradient(90deg, #4e0d15 0 22px, #6b1420 22px 34px, #4e0d15 34px 44px),
+    #4e0d15;
+}
+/* 6 마라톤: 잔디 줄무늬 */
+body[data-scene="marathon"] {
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .5) 0 3px, transparent 3px 120px),
+    repeating-linear-gradient(180deg, #a6d892 0 70px, #98cf83 70px 140px);
+}
+/* 7+ 우주 */
+body[data-scene="space"] {
+  --on-bg: #eef0ff; --on-bg-muted: #b8bde6;
+  background:
+    radial-gradient(1.5px 1.5px at 10% 20%, #fff, transparent) 0 0 / 160px 160px,
+    radial-gradient(1px 1px at 60% 70%, #fff, transparent) 0 0 / 110px 110px,
+    radial-gradient(1.5px 1.5px at 80% 30%, #cfd8ff, transparent) 0 0 / 210px 210px,
+    radial-gradient(1px 1px at 35% 90%, #fff, transparent) 0 0 / 90px 90px,
+    radial-gradient(circle at 85% 85%, rgba(150, 90, 255, .35), transparent 40%),
+    linear-gradient(#0b1030, #1d1446);
+}
+
+/* 다크 모드에서는 밝은 장면을 어둡게 눌러 준다 */
+@media (prefers-color-scheme: dark) {
+  body:not([data-scene="cinema"]):not([data-scene="space"])::before { background-color: rgba(12, 13, 16, .62); }
+  body:not([data-scene="cinema"]):not([data-scene="space"]) { --on-bg: #ecebe8; --on-bg-muted: #b5b1a8; }
+}
+.help {
+  display: inline-block; color: var(--muted);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px;
+}
