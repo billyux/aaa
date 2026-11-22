@@ -12,3 +12,9 @@ LSD 기수정렬(radix sort)을 직접 손으로 해보는 웹 퍼즐 게임.
 ## 실행
 
 `index.html`을 브라우저로 열면 된다. 빌드 과정 없음.
+
+## QR 코드
+
+![사이트 QR](qr/qr.png)
+
+인쇄용 원본: `qr/qr.png`(984px), `qr/qr.svg`(벡터)
